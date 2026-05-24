@@ -1,0 +1,62 @@
+D:\py-90-day\myenv\Scripts\activate
+
+npm run dev
+
+# 重构后端（项目根目录）:
+# python -m uvicorn app.backend.main:app --reload --host 127.0.0.1 --port 8000
+
+uvicorn core_codes.api:app --reload --host 127.0.0.1 --port 8000
+
+
+
+
+
+
+
+
+
+
+D:\py-90-day\myenv\Scripts\activate
+python -m uvicorn app.backend.main:app --reload --host 127.0.0.1 --port 8000
+
+
+
+app/
+├── __init__.py
+├── backend/                          # FastAPI 重构后端
+│   ├── __init__.py
+│   ├── main.py                       # 入口：create_app、CORS、lifespan、注册路由
+│   ├── api/
+│   │   ├── __init__.py               # register_routes(app)
+│   │   └── routes.py                 # 全部 HTTP 路由（薄层，调用 services）
+│   ├── core/
+│   │   ├── __init__.py
+│   │   ├── paths.py                  # PROJECT_ROOT、CORE_CODES_DIR、ensure_core_codes_on_syspath
+│   │   └── config.py                 # settings（模型路径、temp、支持的扩展名等）
+│   ├── services/
+│   │   ├── __init__.py
+│   │   ├── corrector_service.py      # TextCorrector 单例 + preload
+│   │   ├── document_service.py       # read_file / process_file / docx 图片提取 / 原文片段
+│   │   ├── analyze_service.py        # POST /analyze
+│   │   ├── check_text_service.py     # POST /check/text
+│   │   ├── check_reference_service.py
+│   │   ├── check_image_service.py
+│   │   ├── check_table_service.py
+│   │   └── fix_service.py            # /fix/table、/fix/all、查找 fixed 下载文件
+│   └── utils/
+│       ├── __init__.py
+│       ├── fs.py                     # 临时目录、上传落盘、安全文件名、cleanup
+│       └── docx_html.py              # get_docx_html（与旧 api 行为一致）
+└── frontend/                         # 与根目录 frontend 对齐的一份可运行拷贝
+    ├── package.json
+    ├── package-lock.json
+    ├── vite.config.js
+    ├── index.html
+    └── src/
+        ├── main.js
+        ├── api.js
+        ├── App.vue
+        ├── components/ErrorDetail.vue（及原有组件）
+        └── utils/
+            ├── detailParsing.js      # 与主工程共享同一解析/合并逻辑
+            └── highlightUtils.js     # 转义 + 非重叠匹配
