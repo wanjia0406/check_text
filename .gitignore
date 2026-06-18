@@ -1,1 +1,49 @@
-models/macbert_finetuned/model.safetensors
+# ========== 前端Vue忽略 ==========
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+
+# ========== 模型权重（精准匹配你这个文件+全部模型文件夹） ==========
+models/
+# 单独兜底，防止models文件夹没屏蔽干净
+*.safetensors
+*.pth
+*.ckpt
+*.bin
+*.onnx
+*.weights
+
+# ========== 数据集、临时输出文件 ==========
+
+
+
+# ========== Python缓存文件 ==========
+__pycache__/
+*/__pycache__
+*.pyc
+*.pyo
+*.pyd
+
+# ========== 压缩包、临时文件 ==========
+*.zip
+*.rar
+*.7z
+*.tar
+*.gz
+*.tmp
+*.log
+
+# ========== 编辑器与系统隐藏文件 ==========
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# ========== 环境密钥文件（防接口/密码泄露） ==========
+.env
+.env.local
+.env.development
+.env.production
